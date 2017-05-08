@@ -46,7 +46,7 @@ namespace GetTimeFromGoogleMaps
         public static int CalculateTimeBetweenTowns(Town origin, Town destination)
         {
             GoogleSigned.AssignAllServices(new GoogleSigned("AIzaSyBpNl-s2Nei8ORpBBdYqyZS3-16qWpXhqg"));
-            var request2 = new DistanceMatrixRequest();
+            var request2 = new GetTimeFromGoogleMaps.GoogleMapsApi.DistanceMatrixRequest();
             request2.Sensor = false;
             request2.WaypointsOrigin.Add(new LatLng(origin.Lat, origin.Lng));
             request2.WaypointsDestination.Add(new LatLng(destination.Lat, destination.Lng));
