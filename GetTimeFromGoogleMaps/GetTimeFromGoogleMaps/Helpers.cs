@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Google.Maps;
 using Google.Maps.DistanceMatrix;
 
+
 namespace GetTimeFromGoogleMaps
 {
     public static class Helpers
@@ -45,11 +46,12 @@ namespace GetTimeFromGoogleMaps
 
         public static int CalculateTimeBetweenTowns(Town origin, Town destination)
         {
-            GoogleSigned.AssignAllServices(new GoogleSigned("AIzaSyBpNl-s2Nei8ORpBBdYqyZS3-16qWpXhqg"));
-            var request2 = new GetTimeFromGoogleMaps.GoogleMapsApi.DistanceMatrixRequest();
+            //GoogleSigned.AssignAllServices(new GoogleSigned("AIzaSyBpNl-s2Nei8ORpBBdYqyZS3-16qWpXhqg"));
+            var request2 = new DistanceMatrixRequest();
             request2.Sensor = false;
             request2.WaypointsOrigin.Add(new LatLng(origin.Lat, origin.Lng));
             request2.WaypointsDestination.Add(new LatLng(destination.Lat, destination.Lng));
+            request2.TrafficModel=TrafficModel.pessimistic;
             DistanceMatrixService geo2 = new DistanceMatrixService();
             var response2 = geo2.GetResponse(request2);
 

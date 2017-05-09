@@ -33,16 +33,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Google.Maps, Version=0.14.51.34051, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\gmaps-api-net.0.14.51\lib\net\Google.Maps.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\gmaps-api-net.0.14.51\lib\net\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,18 +48,111 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GoogleMapsApi\AvoidHelper.cs" />
-    <Compile Include="GoogleMapsApi\DistanceMatrixRequest.cs" />
+    <Compile Include="Google.Maps\Avoid.cs" />
+    <Compile Include="Google.Maps\AvoidHelper.cs" />
+    <Compile Include="Google.Maps\BaseRequest.cs" />
+    <Compile Include="Google.Maps\BaseSigningService.cs" />
+    <Compile Include="Google.Maps\ComponentFilter.cs" />
+    <Compile Include="Google.Maps\Constants.cs" />
+    <Compile Include="Google.Maps\Direction\DirectionLeg.cs" />
+    <Compile Include="Google.Maps\Direction\DirectionRequest.cs" />
+    <Compile Include="Google.Maps\Direction\DirectionResponse.cs" />
+    <Compile Include="Google.Maps\Direction\DirectionRoute.cs" />
+    <Compile Include="Google.Maps\Direction\DirectionService.cs" />
+    <Compile Include="Google.Maps\Direction\DirectionStep.cs" />
+    <Compile Include="Google.Maps\Direction\DirectionTransitDetails.cs" />
+    <Compile Include="Google.Maps\Direction\GeocodedWaypoint.cs" />
+    <Compile Include="Google.Maps\Direction\LineInfo.cs" />
+    <Compile Include="Google.Maps\Direction\Polyline.cs" />
+    <Compile Include="Google.Maps\Direction\Stop.cs" />
+    <Compile Include="Google.Maps\Direction\Time.cs" />
+    <Compile Include="Google.Maps\Direction\TransitAgency .cs" />
+    <Compile Include="Google.Maps\Direction\VehicleInfo.cs" />
+    <Compile Include="Google.Maps\DistanceMatrix\DistanceMatrixRequest.cs" />
+    <Compile Include="Google.Maps\DistanceMatrix\DistanceMatrixResponse.cs" />
+    <Compile Include="Google.Maps\DistanceMatrix\DistanceMatrixResponseStatus.cs" />
+    <Compile Include="Google.Maps\DistanceMatrix\DistanceMatrixService.cs" />
+    <Compile Include="Google.Maps\Elevation\ElevationRequest.cs" />
+    <Compile Include="Google.Maps\Elevation\ElevationResponse.cs" />
+    <Compile Include="Google.Maps\Elevation\ElevationResult.cs" />
+    <Compile Include="Google.Maps\Elevation\ElevationService.cs" />
+    <Compile Include="Google.Maps\Geocoding\GeocodeResponse.cs" />
+    <Compile Include="Google.Maps\Geocoding\GeocodingRequest.cs" />
+    <Compile Include="Google.Maps\Geocoding\GeocodingService.cs" />
+    <Compile Include="Google.Maps\Geocoding\Result.cs" />
+    <Compile Include="Google.Maps\GMapsImageFormats.cs" />
+    <Compile Include="Google.Maps\GoogleSigned.cs" />
+    <Compile Include="Google.Maps\Internal\ConvertUtil.cs" />
+    <Compile Include="Google.Maps\Internal\Http.cs" />
+    <Compile Include="Google.Maps\Internal\QueryStringBuilder.cs" />
+    <Compile Include="Google.Maps\Internal\RequestUtils.cs" />
+    <Compile Include="Google.Maps\JsonCreationConverter.cs" />
+    <Compile Include="Google.Maps\JsonEnumTypeConverter.cs" />
+    <Compile Include="Google.Maps\KeyValue.cs" />
+    <Compile Include="Google.Maps\LatLng.cs" />
+    <Compile Include="Google.Maps\LatLngComparer.cs" />
+    <Compile Include="Google.Maps\Location.cs" />
+    <Compile Include="Google.Maps\MapMarker.cs" />
+    <Compile Include="Google.Maps\MapMarkersCollection.cs" />
+    <Compile Include="Google.Maps\MapTypes.cs" />
+    <Compile Include="Google.Maps\MarkerSizes.cs" />
+    <Compile Include="Google.Maps\Path.cs" />
+    <Compile Include="Google.Maps\Places\Autocomplete\AutocompleteRequest.cs" />
+    <Compile Include="Google.Maps\Places\Autocomplete\AutocompleteResponse.cs" />
+    <Compile Include="Google.Maps\Places\Autocomplete\AutocompleteResult.cs" />
+    <Compile Include="Google.Maps\Places\Details\AltID.cs" />
+    <Compile Include="Google.Maps\Places\Details\AspectRating.cs" />
+    <Compile Include="Google.Maps\Places\Details\AspectType.cs" />
+    <Compile Include="Google.Maps\Places\Details\DayTime.cs" />
+    <Compile Include="Google.Maps\Places\Details\OpeningHours.cs" />
+    <Compile Include="Google.Maps\Places\Details\Period.cs" />
+    <Compile Include="Google.Maps\Places\Details\Photo.cs" />
+    <Compile Include="Google.Maps\Places\Details\PlaceDetailsRequest.cs" />
+    <Compile Include="Google.Maps\Places\Details\PlaceDetailsResponse.cs" />
+    <Compile Include="Google.Maps\Places\Details\PlaceDetailsResult.cs" />
+    <Compile Include="Google.Maps\Places\Details\PlaceDetailsService.cs" />
+    <Compile Include="Google.Maps\Places\Details\PriceLevel.cs" />
+    <Compile Include="Google.Maps\Places\Details\Review.cs" />
+    <Compile Include="Google.Maps\Places\Details\Scope.cs" />
+    <Compile Include="Google.Maps\Places\NearbySearchRequest.cs" />
+    <Compile Include="Google.Maps\Places\PlacesRequest.cs" />
+    <Compile Include="Google.Maps\Places\PlacesResponse.cs" />
+    <Compile Include="Google.Maps\Places\PlacesResult.cs" />
+    <Compile Include="Google.Maps\Places\PlacesService.cs" />
+    <Compile Include="Google.Maps\Places\PlaceType.cs" />
+    <Compile Include="Google.Maps\Places\RadarSearchRequest.cs" />
+    <Compile Include="Google.Maps\Places\TextSearchRequest.cs" />
+    <Compile Include="Google.Maps\PolylineEncoder.cs" />
+    <Compile Include="Google.Maps\RankBy.cs" />
+    <Compile Include="Google.Maps\ServiceResponseStatus.cs" />
+    <Compile Include="Google.Maps\Shared\AddressComponent.cs" />
+    <Compile Include="Google.Maps\Shared\AddressType.cs" />
+    <Compile Include="Google.Maps\Shared\Geometry.cs" />
+    <Compile Include="Google.Maps\Shared\LocationType.cs" />
+    <Compile Include="Google.Maps\Shared\Viewport.cs" />
+    <Compile Include="Google.Maps\StaticMaps\StaticMapRequest.cs" />
+    <Compile Include="Google.Maps\StaticMaps\StaticMapService.cs" />
+    <Compile Include="Google.Maps\TimeZone\TimeZoneRequest.cs" />
+    <Compile Include="Google.Maps\TimeZone\TimeZoneResponse.cs" />
+    <Compile Include="Google.Maps\TimeZone\TimeZoneService.cs" />
+    <Compile Include="Google.Maps\TrafficModel.cs" />
+    <Compile Include="Google.Maps\TravelMode.cs" />
+    <Compile Include="Google.Maps\Units.cs" />
+    <Compile Include="Google.Maps\ViaLatLng.cs" />
+    <Compile Include="Google.Maps\ViewportComparer.cs" />
+    <Compile Include="Google.Maps\Waypoint.cs" />
     <Compile Include="FuzzyNumber.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="GoogleMapsApi\QueryStringBuilder.cs" />
     <Compile Include="Town.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Google.Maps\Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
