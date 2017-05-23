@@ -11,6 +11,7 @@ namespace GetTimeFromGoogleMaps
 {
     public static class Helpers
     {
+        private static Random _rnd = new Random(DateTime.Now.Millisecond);
         public static List<Town> LoadData(string path)
         {
             List<Town> towns = new List<Town>();
@@ -30,9 +31,9 @@ namespace GetTimeFromGoogleMaps
             return towns;
         }
 
-        public static double[,] CalculateAdjacencyMatrix(List<Town> towns)
+        public static FuzzyNumber[,] CalculateAdjacencyMatrix(List<Town> towns)
         {
-            double[,] adjacencyMatrix = new double[towns.Count + 1, towns.Count + 1];
+            FuzzyNumber[,] adjacencyMatrix = new FuzzyNumber[towns.Count + 1, towns.Count + 1];
             for (int i = 1; i <= towns.Count; i++)
             {
                 for (int j = 1; j <= towns.Count; j++)
@@ -43,23 +44,25 @@ namespace GetTimeFromGoogleMaps
             return adjacencyMatrix;
         }
 
-        public static int CalculateTimeBetweenTowns(Town origin, Town destination)
+        public static FuzzyNumber CalculateTimeBetweenTowns(Town origin, Town destination)
         {
             GoogleSigned.AssignAllServices(new GoogleSigned("AIzaSyBpNl-s2Nei8ORpBBdYqyZS3-16qWpXhqg"));
-            var request2 = new GetTimeFromGoogleMaps.GoogleMapsApi.DistanceMatrixRequest();
-            request2.Sensor = false;
-            request2.WaypointsOrigin.Add(new LatLng(origin.Lat, origin.Lng));
-            request2.WaypointsDestination.Add(new LatLng(destination.Lat, destination.Lng));
+            var request = new GetTimeFromGoogleMaps.GoogleMapsApi.DistanceMatrixRequest();
+            request.Sensor = false;
+            request.WaypointsOrigin.Add(new LatLng(origin.X, origin.Y));
+            request.WaypointsDestination.Add(new LatLng(destination.X, destination.Y));
             DistanceMatrixService geo2 = new DistanceMatrixService();
-            var response2 = geo2.GetResponse(request2);
+            var response2 = geo2.GetResponse(request);
 
             try
             {
-                return Int32.Parse(response2.Rows[0].Elements[0].duration.Value, System.Globalization.CultureInfo.InvariantCulture);
+                var returnedValue = Int32.Parse(response2.Rows[0].Elements[0].duration.Value,
+                    System.Globalization.CultureInfo.InvariantCulture);
+                return new FuzzyNumber(returnedValue - returnedValue * _rnd.NextDouble(), returnedValue, returnedValue+returnedValue * _rnd.NextDouble());
             }
             catch (Exception e)
             {
-                return 0;
+                return new FuzzyNumber();
             }
             
         }

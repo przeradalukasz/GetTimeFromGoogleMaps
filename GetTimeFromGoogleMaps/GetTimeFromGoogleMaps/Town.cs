@@ -12,16 +12,16 @@ namespace GetTimeFromGoogleMaps
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public double Lat { get; set; }
-        public double Lng { get; set; }
+        public double X { get; set; }
+        public double Y { get; set; }
         public string Country { get; set; }
         public string Province { get; set; }
 
-        public Town(int id, double lat, double lng, string name, string country, string province)
+        public Town(int id, double x, double y, string name, string country, string province)
         {
             Id = id;
-            Lat = lat;
-            Lng = lng;
+            X = x;
+            Y = y;
             Country = country;
             Province = province;
             Name = name;

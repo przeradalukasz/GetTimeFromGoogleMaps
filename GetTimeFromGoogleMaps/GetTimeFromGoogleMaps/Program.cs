@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Google.Maps;
 using Google.Maps.DistanceMatrix;
 using Google.Maps.Geocoding;
+using Newtonsoft.Json;
 
 namespace GetTimeFromGoogleMaps
 {
@@ -17,10 +19,14 @@ namespace GetTimeFromGoogleMaps
             List<Town> towns = Helpers.LoadData(DATA_PATH);
             var afganistan = towns.Where(t => t.Country.Equals("Afghanistan")).ToList();
             afganistan.RemoveAt(3);
-            double[,] adjacencyMatrix = Helpers.CalculateAdjacencyMatrix(afganistan);
+            FuzzyNumber[,] adjacencyMatrix = Helpers.CalculateAdjacencyMatrix(afganistan);
 
 
+            string townsJson = JsonConvert.SerializeObject(afganistan, Formatting.Indented);
+            File.WriteAllText(@"C:\TSPData\towns.json", townsJson);
 
+            string adjacencyMatrixJson = JsonConvert.SerializeObject(adjacencyMatrix, Formatting.Indented);
+            File.WriteAllText(@"C:\TSPData\adjacencyMatrix.json", adjacencyMatrixJson);
 
             //GoogleSigned.AssignAllServices(new GoogleSigned("AIzaSyBpNl-s2Nei8ORpBBdYqyZS3-16qWpXhqg"));
             ////var request = new GeocodingRequest { Address = "1600 Amphitheatre Parkway", Sensor = false };
