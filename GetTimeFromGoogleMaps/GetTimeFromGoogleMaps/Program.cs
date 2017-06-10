@@ -13,20 +13,28 @@ namespace GetTimeFromGoogleMaps
 {
     public class Program
     {
-        public static string  DATA_PATH = @"C:\TSPData\simplemaps-worldcities-basic.csv";
+        public static string  DATA_PATH = @"C:\MagisterkaDane\Dane\uscities.csv";
         static void Main(string[] args)
         {
-            List<Town> towns = Helpers.LoadData(DATA_PATH);
-            var afganistan = towns.Where(t => t.Country.Equals("Afghanistan")).ToList();
-            afganistan.RemoveAt(3);
-            FuzzyNumber[,] adjacencyMatrix = Helpers.CalculateAdjacencyMatrix(afganistan);
+           
+            List<Town> towns = Helpers.LoadUSAData(DATA_PATH);
+            
+
+            List<Town> newHampshireCities = towns.Where(c => c.State.Equals("New Hampshire")).ToList();
+            for (int i = 0; i < newHampshireCities.Count; i++)
+            {
+                newHampshireCities[i].Id = i + 1;
+            }
+            string townsJson = JsonConvert.SerializeObject(newHampshireCities, Formatting.Indented);
+
+            File.WriteAllText(@"C:\MagisterkaDane\Dane\newHampshireCities.json", townsJson);
+
+            FuzzyNumber[,] adjacencyMatrix = Helpers.CalculateAdjacencyMatrix(newHampshireCities);
 
 
-            string townsJson = JsonConvert.SerializeObject(afganistan, Formatting.Indented);
-            File.WriteAllText(@"C:\TSPData\towns.json", townsJson);
 
             string adjacencyMatrixJson = JsonConvert.SerializeObject(adjacencyMatrix, Formatting.Indented);
-            File.WriteAllText(@"C:\TSPData\adjacencyMatrix.json", adjacencyMatrixJson);
+            File.WriteAllText(@"C:\MagisterkaDane\Dane\adjacencyMatrixNewHampshire.json", adjacencyMatrixJson);
 
             //GoogleSigned.AssignAllServices(new GoogleSigned("AIzaSyBpNl-s2Nei8ORpBBdYqyZS3-16qWpXhqg"));
             ////var request = new GeocodingRequest { Address = "1600 Amphitheatre Parkway", Sensor = false };
